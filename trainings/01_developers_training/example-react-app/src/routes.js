@@ -10,7 +10,7 @@ const Population = lazy(() => import('components/views/Population.js'));
 
 export const ROUTE_PATHS = {
   LOGIN: '/login',
-  DEFAULT: '/',
+  DEFAULT: '/pop',
   NOT_FOUND: '/404',
   POPULATION: '/pop',
   // [hygen] Add path routes
