@@ -12,7 +12,7 @@ const slice = createSlice({
     },
     setBottomSheetOpen: (state, action) => {
       state.bottomSheetOpen = action.payload;
-    }
+    },
   },
 });
 

@@ -20,7 +20,7 @@ export default function ListingsLayer() {
       getLineColor: [255, 0, 0],
       lineWidthMinPixels: 1,
       pickable: true,
-      visible: false
+      visible: false,
     });
   }
 }

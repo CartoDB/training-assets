@@ -1,4 +1,4 @@
-import ListingsLayer from './ListingsLayer';
+import ListingsLayer from './ListingsTilesetLayer';
 import ClusterLayer from './ClusterLayer';
 // [hygen] Import layers
 

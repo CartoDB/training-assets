@@ -15,7 +15,7 @@ export const initialState = {
     apiVersion: API_VERSIONS.V3,
     apiBaseUrl: 'https://gcp-us-east1.api.carto.com',
     accessToken:
-    'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfN3hoZnd5bWwiLCJqdGkiOiI0MGE0YjVlOSJ9.zihu4htlvhk-HElmcKL_V29Ug829Z_n2ITR4cNm_2IA',
+      'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfN3hoZnd5bWwiLCJqdGkiOiI1NmFhZjdhYSJ9.fkF8KOZ2m4gcpoNtABFcCA1yzjK6ml-jJWhPXKRV8iQ',
   },
   googleApiKey: '',
   googleMapId: '',
