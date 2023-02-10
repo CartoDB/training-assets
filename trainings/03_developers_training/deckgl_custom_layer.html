@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/deck.gl@^8.8.0/dist.min.js"></script>
+    <script src="https://unpkg.com/@deck.gl/carto@^8.8.0/dist.min.js"></script>
+    
+    <script src="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.css" rel="stylesheet" />
+    <style type="text/css">
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+      
+      #control-panel {
+        position: absolute;
+        width: 12%;
+        top: 0;
+        left: 0;
+        margin: 12px;
+        padding: 10px;
+        font-size: 11px;
+        line-height: 1.5;
+        z-index: 1;
+        font-family: Helvetica, Arial, sans-serif;
+        background: #fff;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .Legend-colorBox {
+          width: 1.5rem;
+          height: 1.5rem;
+          display: inline-block;
+      }
+      
+      label {
+        display: inline-block;
+        width: 100px;
+      }
+    </style>
+  </head>
+
+  <body style="margin: 0; padding: 0; background-color: #212121;">
+    <div id="map" style="width: 100vw; height: 100vh"></div>
+    <div id="control-panel">
+      <h1>Legend</h1>
+      <div>
+        <span class="Legend-colorBox" style="background-color: rgb(19, 111, 245);"></span>
+        <label>cartodb_id > 10000</label>
+      </div>
+      <div>
+        <span class="Legend-colorBox" style="background-color: rgb(245, 19, 70);"></span>
+        <label>cartodb_id < 10000</label>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    async function initialize() {
+      deck.carto.setDefaultCredentials({
+        apiBaseUrl: 'https://gcp-us-east1.api.carto.com',
+        accessToken: '<TOKEN>'
+      });
+
+      // Fetch Data from CARTO
+      const { data: jsonData } =  await deck.carto.fetchLayerData({
+        type: deck.carto.MAP_TYPES.QUERY,
+        source: 'SELECT * FROM carto-demo-data.demo_tables.airports',
+        connection: 'carto_dw',
+        format: deck.carto.FORMATS.JSON 
+      });
+
+      // Create deck.gl map
+      const deckgl = new deck.DeckGL({
+        container: 'map',
+        map: maplibregl,
+        mapStyle: deck.carto.BASEMAP.DARK_MATTER,
+        initialViewState: {
+          latitude: 30,
+          longitude: 10,
+          zoom: 3,
+          pitch: 130
+        },
+        controller: true,
+        layers: [
+        new deck.ArcLayer({
+            id: 'arc',
+            data: jsonData,
+            getSourcePosition: d => d.geom.coordinates,
+            getTargetPosition: d => [-121.113490599183, 36.5077649806118],
+            getSourceColor: d => {
+              if (d.cartodb_id > 10000) {
+                return [19, 111, 245]
+              } else {
+                return [245, 19, 70]
+              }
+            },
+            getWidth: 2
+          })
+        ]
+      });
+    }
+
+    initialize();    
+  </script>
+</html>
