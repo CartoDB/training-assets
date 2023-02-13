@@ -1,0 +1,55 @@
+## Access Token Request
+
+### Mac
+
+curl --request POST \
+  --url 'https://auth.carto.com/oauth/token' \
+  --header 'content-type: application/x-www-form-urlencoded' \
+  --data 'grant_type=client_credentials' \
+  --data 'client_id={client_secret}' \
+  --data 'client_secret={client_id}' \
+  --data 'audience=carto-cloud-native-api' 
+
+### PC
+
+curl --request POST ^
+  --url "https://auth.carto.com/oauth/token" ^
+  --header "content-type: application/x-www-form-urlencoded" ^
+  --data "grant_type=client_credentials" ^
+  --data "client_id={client_secret}" ^
+  --data "client_secret={client_id}" ^
+  --data "audience=carto-cloud-native-api" 
+
+
+## Public Token Creation
+
+### Mac
+
+curl --location --request POST "https://gcp-us-east1.api.carto.com/v3/tokens" \
+--header "Content-Type: application/json" \
+--header "Authorization: Bearer <TOKEN>" \
+--data-raw "{
+    \"grants\": [
+        {
+            \"connection_name\": \"<CONNECTION_NAME>\",
+            \"source\": \"<DATA_IMPORT>\"
+        }
+    ],
+    \"referers\": [],
+    \"allowed_apis\": [\"sql\", \"maps\",\"imports\"]
+}"
+
+### PC
+curl --location --request POST "https://gcp-us-east1.api.carto.com/v3/tokens" ^
+--header "Content-Type: application/json" ^
+--header "Authorization: Bearer <TOKEN>" ^
+--data-raw "{
+    \"grants\": [
+        {
+            \"connection_name\": \"<CONNECTION_NAME>\",
+            \"source\": \"<DATA_IMPORT>\"
+        }
+    ],
+    \"referers\": [],
+    \"allowed_apis\": [\"sql\", \"maps\",\"imports\"]
+}"
